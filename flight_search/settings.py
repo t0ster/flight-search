@@ -130,7 +130,6 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 
     'gunicorn',
-    'bootstrapform',
     'debug_toolbar',
 
     'flight_search.apps.core',
