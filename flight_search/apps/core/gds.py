@@ -1,5 +1,5 @@
 import random
-from datetime import datetime, date, time, timedelta
+from datetime import datetime, time, timedelta
 from time import sleep
 
 
@@ -19,7 +19,7 @@ def get_flights(origin, destination, departure_date, number_of_results,
         flight_number = random.randint(1, 999999)
         origin_destination = "%s-%s" % (origin, destination)
         departure_time = datetime.combine(
-            date.today(),
+            departure_date,
             time()) + timedelta(seconds=(random.randint(0, 24 * 60 * 60))
         )
         arrival_time = (
