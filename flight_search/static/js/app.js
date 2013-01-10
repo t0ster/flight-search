@@ -4,3 +4,8 @@ if (!Modernizr.inputtypes.date) {
         $('input[type=date]').datepicker();
     });
 }
+
+// Help alert
+$(function (){
+    setTimeout(function() {$('#help_alert').modal()}, 5000);
+});
