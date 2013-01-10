@@ -6,7 +6,6 @@ from flight_search.apps.core.views import FlightSearchFormView, FlightSearchResu
 urlpatterns = patterns('',
     url(r'^$', FlightSearchFormView.as_view(), name='home'),
     url(r'^search/$', FlightSearchResultsView.as_view(), name='search_results'),
-    # url(r'^locations_autocomplete/$', "flight_search.apps.core.views.locations_autocomplete", name='locations_autocomplete'),
 )
 
 urlpatterns += patterns('',
