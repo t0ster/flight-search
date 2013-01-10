@@ -1,0 +1,18 @@
+%form.form-inline{ :action => "{% url search_results %}" }
+    %label
+      Origin
+      %select.input-small{ :name => "origin" }
+        - for choice in form.fields.origin.choices
+          %option{ :value => "{{ choice.0 }}" }= choice.1
+    %label
+      Destination
+      %select.input-small{ :name => "destination" }
+        - for choice in form.fields.destination.choices
+          %option{ :value => "{{ choice.0 }}" }= choice.1
+    %label
+      Departure Date
+      %input.input-small{ :type => "date", :name => "departure_date", :value => '{{ form.departure_date.value|date:"m/d/Y" }}' }
+    %label.checkbox
+      = form.show_many
+      Show Many
+    %button.btn.btn-primary{ :type => "submit" } Search

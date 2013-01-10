@@ -1,0 +1,22 @@
+- extends "base.haml"
+
+- block title
+  Search Flight
+{% block body_class %}search_results_page{% endblock %}
+
+- block content
+  %h2 Search Results
+  %table.table.table-striped
+    %tr
+      %th Airline
+      %th Flight Number
+      %th Origin / Destination
+      %th Departure Time
+      %th Arrival Time
+    - for result in results
+      %tr
+        %td= result.airline
+        %td= result.flight_number
+        %td= result.origin_destination
+        %td= result.departure_time
+        %td= result.arrival_time
