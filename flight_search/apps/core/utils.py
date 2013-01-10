@@ -1,9 +1,16 @@
-from datetime import date
+from django.core.cache import cache
 
 from flight_search.apps.core.gds import get_flights as gds_get_flights
 
 
+def make_cache_key(origin, destination, departure_date, show_many):
+    return 'gds:%s:%s:%s:%s' % (origin, destination, departure_date, show_many)
+
+
 def get_flights(origin, destination, departure_date, show_many):
+    results_from_cache = cache.get(make_cache_key(origin, destination, departure_date, show_many))
+    if results_from_cache is not None:
+        return results_from_cache
     number_of_results = 15 if show_many else 10
     number_of_results_per_request = 5
     number_of_queries = (number_of_results / number_of_results_per_request)
@@ -30,5 +37,8 @@ def get_flights(origin, destination, departure_date, show_many):
             'departure_time': departure_time,
             'arrival_time': arrival_time
         })
+
+    cache.set(make_cache_key(origin, destination, departure_date, show_many),
+              new_results, timeout=(10 * 60))
 
     return new_results

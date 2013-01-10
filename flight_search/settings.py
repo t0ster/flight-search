@@ -87,7 +87,11 @@ STATICFILES_FINDERS = (
 )
 
 
-
+CACHES = {
+    'default': {
+        'BACKEND': 'django_pylibmc.memcached.PyLibMCCache'
+    }
+}
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '00$fv4hhkr$bpl8)(6be(x97nwb1#@t9n__$+37*th0%!lxsvb'
