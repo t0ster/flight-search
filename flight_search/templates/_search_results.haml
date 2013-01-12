@@ -1,0 +1,20 @@
+- if form.errors
+  <script type="text/javascript">
+    window.location = "{% url home %}" + "?" + window.location.search;
+  </script>
+- else
+  %h2 Search Results
+  %table.table.table-striped
+    %tr
+      %th Airline
+      %th Flight Number
+      %th Origin / Destination
+      %th Departure Time
+      %th Arrival Time
+    - for result in results
+      %tr
+        %td= result.airline
+        %td= result.flight_number
+        %td= result.origin_destination
+        %td= result.departure_time
+        %td= result.arrival_time

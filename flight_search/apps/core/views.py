@@ -41,24 +41,35 @@ class FlightSearchFormView(GetFormMixin, FormView):
 
 class FlightSearchResultsView(GetFormMixin, FormView):
     """
-    View that displays flight search results, if query string is invalid
-    redirects to `FlightSearchFormView` which displays errors
+    View that displays flight search results.
+
+    If normal request just renders "search_results.haml" template,
+    if ajax request gets results and renders "_search_results.haml" with these results.
+
+    If invalid request redirects to `FlightSearchFormView` via javascipt,
+    see "_search_results.haml" template for details.
     """
-    template_name = "search_results.haml"
     form_class = FlightSearchForm
+
+    def get_template_names(self):
+        if not self.request.is_ajax():
+            template_name = "search_results.haml"
+        else:
+            template_name = "_search_results.haml"
+        return [template_name]
 
     def get(self, request, *args, **kwargs):
         # if empty query string going back to search form
         if not self.request.GET:
             return redirect('home')
+        # Request is not ajax so just rendering template which contains
+        # "Loading ..." text
+        if not self.request.is_ajax():
+            return self.render_to_response(self.get_context_data())
         return super(FlightSearchResultsView, self).get(request, *args, **kwargs)
 
     def form_valid(self, form):
         return self.get_results(form)
-
-    def form_invalid(self, form):
-        # if invalid query string going back to search form
-        return redirect("%s?%s" % (reverse('home'), self.request.GET.urlencode()))
 
     def get_results(self, form):
         results = get_flights(

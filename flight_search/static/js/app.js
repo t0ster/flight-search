@@ -5,7 +5,11 @@ if (!Modernizr.inputtypes.date) {
     });
 }
 
-// Help alert
 $(function (){
-    setTimeout(function() {$('#help_alert').modal()}, 5000);
+    if ($('.search_results_page').length){
+        $.get(window.location.pathname + window.location.search, function(data) {
+            setTimeout(function() {$('#help_alert').modal()}, 5000);  // Help alert
+            $(".inner_content").html(data);
+        });
+    }
 });
