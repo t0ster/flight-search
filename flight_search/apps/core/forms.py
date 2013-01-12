@@ -47,6 +47,12 @@ class FlightSearchForm(FormStyleMixin, forms.Form):
         super(FlightSearchForm, self).__init__(*args, **kwargs)
         self.helper.form_method = 'get'
 
+    def clean_departure_date(self):
+        departure_date = self.cleaned_data['departure_date']
+        if departure_date < date.today():
+            raise forms.ValidationError("Departure date can not be in the past")
+        return departure_date
+
     def clean(self):
         cleaned_data = super(FlightSearchForm, self).clean()
         origin = cleaned_data.get("origin")
