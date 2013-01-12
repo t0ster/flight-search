@@ -6,3 +6,4 @@ django-debug-toolbar
 gunicorn
 pylibmc==1.2.2
 django-pylibmc-sasl==0.2.4
+git+https://github.com/maraujop/django-crispy-forms.git@185dd31e3e06f66830c7ee5d98db0e07f8a42d92#egg=django-crispy-forms

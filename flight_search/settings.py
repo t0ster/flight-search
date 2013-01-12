@@ -135,6 +135,7 @@ INSTALLED_APPS = (
 
     'gunicorn',
     'debug_toolbar',
+    'crispy_forms',
 
     'flight_search.apps.core',
 )

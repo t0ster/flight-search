@@ -3,11 +3,18 @@ from django.core.cache import cache
 from flight_search.apps.core.gds import get_flights as gds_get_flights
 
 
+CACHE_TIME = 10 * 60
+
+
 def make_cache_key(origin, destination, departure_date, show_many):
     return 'gds:%s:%s:%s:%s' % (origin, destination, departure_date, show_many)
 
 
 def get_flights(origin, destination, departure_date, show_many):
+    """
+    Wrapper around `gds.get_flights` which splits requests, converts results
+    to list of dicts and caches gds response
+    """
     results_from_cache = cache.get(make_cache_key(origin, destination, departure_date, show_many))
     if results_from_cache is not None:
         return results_from_cache
@@ -39,6 +46,6 @@ def get_flights(origin, destination, departure_date, show_many):
         })
 
     cache.set(make_cache_key(origin, destination, departure_date, show_many),
-              new_results, timeout=(10 * 60))
+              new_results, timeout=CACHE_TIME)
 
     return new_results
