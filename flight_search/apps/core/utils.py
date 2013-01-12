@@ -18,6 +18,9 @@ def get_flights(origin, destination, departure_date, show_many):
     results_from_cache = cache.get(make_cache_key(origin, destination, departure_date, show_many))
     if results_from_cache is not None:
         return results_from_cache
+
+    # If `show_many` is True making 3 requests else making 2 requests.
+    # Each request returns 5 results.
     number_of_results = 15 if show_many else 10
     number_of_results_per_request = 5
     number_of_queries = (number_of_results / number_of_results_per_request)
