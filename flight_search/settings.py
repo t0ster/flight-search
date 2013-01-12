@@ -94,7 +94,7 @@ CACHES = {
 }
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '00$fv4hhkr$bpl8)(6be(x97nwb1#@t9n__$+37*th0%!lxsvb'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
